@@ -56,6 +56,7 @@ public class Category implements Serializable {
         return Objects.equals(Id, category.Id);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hashCode(Id);
