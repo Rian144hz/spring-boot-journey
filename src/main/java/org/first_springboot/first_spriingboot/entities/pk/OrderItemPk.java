@@ -8,6 +8,9 @@ import org.first_springboot.first_spriingboot.entities.Product;
 
 import java.io.Serializable;
 import java.util.Objects;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Embeddable
 public class OrderItemPk implements Serializable {
 
@@ -45,6 +48,6 @@ public class OrderItemPk implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(order, product);
+        return Objects.hash(id);
     }
 }
