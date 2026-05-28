@@ -1,8 +1,10 @@
 package org.first_springboot.first_spriingboot.config;
 
+import org.first_springboot.first_spriingboot.entities.Category;
 import org.first_springboot.first_spriingboot.entities.Order;
 import org.first_springboot.first_spriingboot.entities.User;
 import org.first_springboot.first_spriingboot.enums.OrderStatus;
+import org.first_springboot.first_spriingboot.repositories.CategoryRepository;
 import org.first_springboot.first_spriingboot.repositories.OrderRepository;
 import org.first_springboot.first_spriingboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +21,33 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
 
+    @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
 
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
         User u1 = new User(null,"Matheus","matheus@gmail.com","759999999","123456");
         User u2 = new User(null,"Rian","rian@gmail.com","7594444999","1286456");
-
 
         Order o1 = new Order(null, Instant.parse("2026-05-27T19:53:07Z"), OrderStatus.PAID, u1);
         Order o2 = new Order(null, Instant.parse("2026-06-24T03:42:10Z"),OrderStatus.SHIPPED, u2);
         Order o3 = new Order(null, Instant.parse("2026-07-23T15:21:22Z"),OrderStatus.DELIVERED, u1);
+
+
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+        categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+
+
     }
 }
