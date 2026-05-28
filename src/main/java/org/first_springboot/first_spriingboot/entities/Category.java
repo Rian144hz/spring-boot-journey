@@ -1,5 +1,6 @@
 package org.first_springboot.first_spriingboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,7 +17,8 @@ public class Category implements Serializable {
     private Long Id;
     private String name;
 
-    @Transient
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
 
