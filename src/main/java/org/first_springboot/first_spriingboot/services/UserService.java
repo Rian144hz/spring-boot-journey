@@ -22,14 +22,14 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> obj = userRepository.findById(id);
-        return obj.orElseThrow(()->new ResourceNotFoundException(id));
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public User insert(User obj){
-         return userRepository.save(obj);
+    public User insert(User obj) {
+        return userRepository.save(obj);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         if (!userRepository.existsById(id)) {
             throw new ResourceNotFoundException(id);
         }
@@ -43,10 +43,17 @@ public class UserService {
         }
     }
 
-    public User update( Long id, User obj){
-        User entity = userRepository.getReferenceById(id);
-        updateData(entity,obj);
-        return userRepository.save(entity);
+    public User update(Long id, User obj) {
+        if (!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException(id);
+        }
+        try {
+            User entity = userRepository.getReferenceById(id);
+            updateData(entity, obj);
+            return userRepository.save(entity);
+        } catch (jakarta.persistence.EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User obj) {
