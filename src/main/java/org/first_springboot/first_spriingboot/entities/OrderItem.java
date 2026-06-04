@@ -31,6 +31,7 @@ public class OrderItem {
         return id.getOrder();
     }
 
+    @JsonIgnore
     public void setOrder(Order order){
         id.setOrder(order);
     }
